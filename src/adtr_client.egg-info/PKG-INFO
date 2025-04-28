@@ -1,3 +1,18 @@
+Metadata-Version: 2.4
+Name: adtr_client
+Version: 0.0.2
+Summary: A simple Python client for the [Adtr Translation API]
+Author-email: pi11 <webii@pm.me>
+License-Expression: WTFPL
+Project-URL: Homepage, https://github.com/pi11/adtr_client
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Dynamic: license-file
+
 # Adtr Translation Client
 
 A simple Python client for the [Adtr Translation API](https://adtr.webnova.one/docs).

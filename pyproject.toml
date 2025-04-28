@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "adtr_client"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="pi11", email="webii@pm.me" },
 ]
@@ -11,8 +15,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-license = "WTFPL"
-license-files = ["LICEN[CS]E*"]
+dependencies = [
+    "requests"
+]
+license = "WTFPL" 
 
 [project.urls]
 Homepage = "https://github.com/pi11/adtr_client"
