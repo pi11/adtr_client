@@ -1,0 +1,18 @@
+[project]
+name = "adtr_client"
+version = "0.0.1"
+authors = [
+  { name="pi11", email="webii@pm.me" },
+]
+description = "A simple Python client for the [Adtr Translation API]"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "WTFPL"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/pi11/adtr_client"
