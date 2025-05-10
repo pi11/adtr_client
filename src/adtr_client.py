@@ -44,7 +44,7 @@ def translate(
             print(f"[DEBUG] Error: Text exceeds maximum length (300 characters)")
         raise ValueError("Text must be 300 characters or less")
 
-    base_url = "https://adtr.webnova.one"
+    base_url = "https://aitr.webnova.one"
     endpoint = f"{base_url}/translate"
 
     payload = {
