@@ -12,12 +12,12 @@ pip install adtr_client
 
 ## Usage
 
-Use the client to translate text via the Adtr Translation API.
+Use the client to translate or synonymize text via the Adtr Translation API.
 
 Example:
 
 ```python
-from adtr_client import translate
+from adtr_client import translate, synonimyze
 
 result = translate(
     user_id="your_user_id",
@@ -27,6 +27,18 @@ result = translate(
 )
 
 print(result)
+
+
+from adtr_client import translate
+
+result = synonimyze(
+    user_id="your_user_id",
+    api_key="your_api_key",
+    text="text to synonimyze",
+)
+
+print(result)
+
 ```
 
 ## Configuration
