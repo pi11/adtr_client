@@ -8,6 +8,7 @@ def translate(
     target_language: str = "russian",
     timeout: int = 30,
     verbose: bool = False,
+    source_language: str = "Auto",
 ) -> str:
     """
     Translate text to the specified target language.
@@ -19,6 +20,7 @@ def translate(
         target_language (str, optional): Target language for translation. Defaults to "russian".
         timeout (int, optional): Request timeout in seconds. Defaults to 30.
         verbose (bool, optional): Enable verbose output for debugging. Defaults to False.
+        source_language (str, optional): Source language name or code. Defaults to automatic detection.
 
     Returns:
         str: translated text
@@ -30,7 +32,9 @@ def translate(
     if verbose:
         print(f"[DEBUG] Starting translation request")
         print(
-            f"[DEBUG] Parameters: text length={len(text)}, target_language={target_language}"
+            "[DEBUG] Parameters: "
+            f"text length={len(text)}, source_language={source_language}, "
+            f"target_language={target_language}"
         )
 
     if not text.strip():
@@ -50,6 +54,7 @@ def translate(
         "user_id": user_id,
         "api_key": api_key,
         "text": text,
+        "source_language": source_language,
         "target_language": target_language,
     }
 

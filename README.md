@@ -1,6 +1,6 @@
 # Adtr Translation Client
 
-A simple Python client for the [Adtr Translation API](https://adtr.webnova.one/docs).
+A simple Python client for the [Adtr Translation API](https://aitr.webnova.one/docs).
 
 ## Installation
 
@@ -12,39 +12,61 @@ pip install adtr_client
 
 ## Usage
 
-Use the client to translate or synonymize text via the Adtr Translation API.
+Use the client to translate or creatively rewrite text via the Adtr Translation API.
+The API accepts several languages, with English-to-Russian and Russian-to-English
+as the primary translation directions.
 
-Example:
+### Translate English to Russian
 
 ```python
-from adtr_client import translate, synonimyze
-
-result = translate(
-    user_id="your_user_id",
-    api_key="your_api_key",
-    text="text to translate",
-    target_language="target_language"
-)
-
-print(result)
-
-
 from adtr_client import translate
 
-result = synonimyze(
-    user_id="your_user_id",
+result = translate(
+    user_id=123,
     api_key="your_api_key",
-    text="text to synonimyze",
+    text="English title to translate",
+    source_language="en",
+    target_language="ru",
 )
 
 print(result)
+```
 
+Use `source_language="Auto"` (the default) when the source language should be
+detected automatically. Existing calls that only provide `target_language`
+continue to work.
+
+### Translate Russian to English
+
+```python
+from adtr_client import translate
+
+result = translate(
+    user_id=123,
+    api_key="your_api_key",
+    text="Текст для перевода",
+    source_language="ru",
+    target_language="en",
+)
+
+print(result)
+```
+
+### Creatively rewrite in the same language
+
+```python
+from adtr_client import synonymize
+
+result = synonymize(
+    user_id=123,
+    api_key="your_api_key",
+    text="Text to rewrite",
+)
+
+print(result)
 ```
 
 ## Configuration
 
 1. Obtain your `user_id` and `api_key` from the rkn.name service
-2. Replace `"your_user_id"`, `"your_api_key"`, and other parameters in the example above with your credentials and desired values.
-
-```
-
+2. Replace the example credentials and text with your own values.

@@ -1,0 +1,49 @@
+import sys
+from pathlib import Path
+from unittest.mock import Mock, patch
+
+sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
+
+from adtr_client import translate
+
+
+@patch("adtr_client.Session")
+def test_translate_sends_explicit_language_direction(session_class):
+    response = Mock()
+    response.json.return_value = {"result": "result"}
+    session_class.return_value.post.return_value = response
+
+    result = translate(
+        user_id=123,
+        api_key="key",
+        text="title",
+        source_language="en",
+        target_language="ru",
+    )
+
+    assert result == "result"
+    session_class.return_value.post.assert_called_once_with(
+        "https://aitr.webnova.one/translate",
+        json={
+            "user_id": 123,
+            "api_key": "key",
+            "text": "title",
+            "source_language": "en",
+            "target_language": "ru",
+        },
+        timeout=30,
+    )
+
+
+@patch("adtr_client.Session")
+def test_translate_defaults_to_source_language_auto(session_class):
+    response = Mock()
+    response.json.return_value = {"result": "result"}
+    session_class.return_value.post.return_value = response
+
+    translate(123, "key", "title", "en", 12, False)
+
+    payload = session_class.return_value.post.call_args.kwargs["json"]
+    assert payload["source_language"] == "Auto"
+    assert payload["target_language"] == "en"
+    assert session_class.return_value.post.call_args.kwargs["timeout"] == 12
