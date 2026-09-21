@@ -1,4 +1,31 @@
 from requests import Session
+from requests.exceptions import HTTPError
+
+
+def _raise_for_status(response, verbose: bool) -> None:
+    """Raise an HTTP error that includes a safe API-provided detail message."""
+    try:
+        response.raise_for_status()
+    except HTTPError as exc:
+        detail = None
+        try:
+            payload = response.json()
+            if isinstance(payload, dict):
+                detail = payload.get("detail")
+        except (TypeError, ValueError):
+            pass
+
+        if verbose:
+            print(f"[DEBUG] Error occurred: {exc}")
+            print(f"[DEBUG] Response content: {response.text}")
+
+        if isinstance(detail, str) and detail.strip():
+            raise HTTPError(
+                f"{exc} - API detail: {detail.strip()}",
+                response=response,
+                request=getattr(response, "request", None),
+            ) from exc
+        raise
 
 
 def translate(
@@ -73,13 +100,7 @@ def translate(
         print(f"[DEBUG] Response status code: {response.status_code}")
         print(f"[DEBUG] Response headers: {response.headers}")
 
-    try:
-        response.raise_for_status()
-    except Exception as e:
-        if verbose:
-            print(f"[DEBUG] Error occurred: {str(e)}")
-            print(f"[DEBUG] Response content: {response.text}")
-        raise
+    _raise_for_status(response, verbose)
 
     data = response.json()
 
@@ -152,13 +173,7 @@ def synonymize(
         print(f"[DEBUG] Response status code: {response.status_code}")
         print(f"[DEBUG] Response headers: {response.headers}")
 
-    try:
-        response.raise_for_status()
-    except Exception as e:
-        if verbose:
-            print(f"[DEBUG] Error occurred: {str(e)}")
-            print(f"[DEBUG] Response content: {response.text}")
-        raise
+    _raise_for_status(response, verbose)
 
     data = response.json()
 
