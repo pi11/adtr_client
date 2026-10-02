@@ -35,6 +35,23 @@ print(result)
 Use `source_language="Auto"` (the default) when the source language should be
 detected automatically. Existing calls that only provide `target_language`
 continue to work.
+Translation text can be up to 50,000 characters. For long descriptions, set a
+larger `timeout` if needed because the API translates them in smaller sections.
+
+Pass optional `context` to identify the medium or subject without including it
+in the translated result:
+
+```python
+result = translate(
+    user_id=123,
+    api_key="your_api_key",
+    text="Game title to translate",
+    target_language="ru",
+    context="This is the title of an adult flash game",
+)
+```
+
+`context` also works with `synonymize`; its title limit remains 300 characters.
 
 ### Translate Russian to English
 
